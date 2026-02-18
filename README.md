@@ -1,11 +1,11 @@
 # 🎯 AI Model Integration System
 
-A comprehensive, production-ready AI integration system with support for 26+ providers and 32+ capability handlers.
+A comprehensive, production-ready AI integration system with 36 capability handlers across 11 AI providers.
 
 ## 📦 Features
 
-- **26+ AI Provider Support**: OpenAI, Anthropic, Meta, Hugging Face, Stability AI, and more
-- **32+ Capability Handlers**: Text generation, image classification, sentiment analysis, code generation, and more
+- **11 AI Provider Support**: OpenAI, Anthropic, Meta, Hugging Face, Stability AI, Ultralytics, Google, Facebook, Intel, Microsoft, and Custom
+- **36 Capability Handlers**: Text generation, image classification, sentiment analysis, code generation, and more
 - **MediatR Integration**: Clean CQRS pattern with command handlers
 - **Configuration-Driven**: Load model configurations from appsettings.json
 - **Standardized Responses**: Consistent result format across all capabilities
@@ -92,7 +92,7 @@ Configuration model for AI models with provider-specific parameters
 - `code-review` - Review code for issues
 - `bug-detection` - Detect potential bugs
 
-### Machine Learning (4 handlers)
+### Machine Learning (5 handlers)
 - `recommendation` - Generate recommendations
 - `anomaly-detection` - Detect anomalies in data
 - `forecasting` - Time series forecasting

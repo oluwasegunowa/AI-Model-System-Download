@@ -5,6 +5,69 @@ using System.Threading.Tasks;
 
 namespace AIModelSystem.Commands.BPM.AI.Handlers
 {
+    [Capability("audio-classification")]
+    public class AudioClassificationHandler : ICapabilityHandler
+    {
+        public async Task<AIModelResult> ExecuteAsync(AIModelConfig config, object input, int timeoutMs, CancellationToken cancellationToken)
+        {
+            var inputDict = input as Dictionary<string, object>;
+            var audioUrl = inputDict?.ContainsKey("audioUrl") == true ? inputDict["audioUrl"]?.ToString() : null;
+
+            if (string.IsNullOrWhiteSpace(audioUrl))
+                throw new ArgumentException("AudioUrl is required");
+
+            await Task.Delay(170, cancellationToken);
+
+            return new AIModelResult
+            {
+                ModelId = config.ModelId,
+                Capability = config.Capability,
+                Provider = config.Provider,
+                ModelVersion = config.Model,
+                Data = new Dictionary<string, object>
+                {
+                    ["category"] = "music",
+                    ["categories"] = new[]
+                    {
+                        new { name = "music", confidence = 0.91 },
+                        new { name = "instrumental", confidence = 0.84 }
+                    }
+                },
+                Confidence = 0.91
+            };
+        }
+    }
+
+    [Capability("music-generation")]
+    public class MusicGenerationHandler : ICapabilityHandler
+    {
+        public async Task<AIModelResult> ExecuteAsync(AIModelConfig config, object input, int timeoutMs, CancellationToken cancellationToken)
+        {
+            var inputDict = input as Dictionary<string, object>;
+            var prompt = inputDict?.ContainsKey("prompt") == true ? inputDict["prompt"]?.ToString() : input?.ToString();
+
+            if (string.IsNullOrWhiteSpace(prompt))
+                throw new ArgumentException("Prompt is required");
+
+            await Task.Delay(500, cancellationToken);
+
+            return new AIModelResult
+            {
+                ModelId = config.ModelId,
+                Capability = config.Capability,
+                Provider = config.Provider,
+                ModelVersion = config.Model,
+                Data = new Dictionary<string, object>
+                {
+                    ["audioUrl"] = "https://example.com/generated-music.mp3",
+                    ["duration"] = 30.0,
+                    ["format"] = "mp3"
+                },
+                Confidence = 0.88
+            };
+        }
+    }
+
     [Capability("translation")]
     public class TranslationHandler : ICapabilityHandler
     {
